@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo/vector-icons": "^12.0.1",
+    "@expo/vector-icons": "^10.0.0",
     "@react-native-community/async-storage": "^1.12.1",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
