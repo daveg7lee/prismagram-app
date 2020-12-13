@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-community/async-storage";
 import ApolloClient from "apollo-boost";

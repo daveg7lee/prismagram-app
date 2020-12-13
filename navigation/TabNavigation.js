@@ -1,32 +1,28 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
 import { View } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import Notification from "../screens/Notification";
 import Search from "../screens/Search";
+import Notifications from "../screens/Notification";
 import Profile from "../screens/Profile";
 
-const TabNavigation = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export default () => {
-  return (
-    <NavigationContainer>
-      <TabNavigation.Navigator>
-        <TabNavigation.Screen name="Home" component={Home} />
-        <TabNavigation.Screen name="Search" component={Search} />
-        <TabNavigation.Screen
-          name="Add"
-          component={View}
-          listeners={({ navigation, route }) => ({
-            tabPress: (e) => {
-              console.log("add");
-            },
-          })}
-        />
-        <TabNavigation.Screen name="Notification" component={Notification} />
-        <TabNavigation.Screen name="Profile" component={Profile} />
-      </TabNavigation.Navigator>
-    </NavigationContainer>
-  );
-};
+export default () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Home" component={Home} />
+    <Tab.Screen name="Search" component={Search} />
+    <Tab.Screen
+      name="Add"
+      component={View}
+      listeners={({ navigation }) => ({
+        tabPress: (e) => {
+          e.preventDefault();
+          navigation.navigate("PhotoNavigation");
+        },
+      })}
+    />
+    <Tab.Screen name="Notifications" component={Notifications} />
+    <Tab.Screen name="Profile" component={Profile} />
+  </Tab.Navigator>
+);
