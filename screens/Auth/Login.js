@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import AuthButton from "../../Components/AuthButton";
+import AuthInput from "../../Components/AuthInput";
 
 const View = styled.View`
   justify-content: center;
@@ -7,10 +9,13 @@ const View = styled.View`
   flex: 1;
 `;
 
-const Text = styled.Text``;
-
 export default () => (
   <View>
-    <Text>Log In</Text>
+    <AuthInput
+      placeholder="Put Your Email"
+      value=""
+      keyboardType="email-address"
+    />
+    <AuthButton text="Request Secret" onPress={() => console.log("Hello")} />
   </View>
 );
