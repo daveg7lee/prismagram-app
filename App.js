@@ -13,6 +13,7 @@ import { ApolloProvider } from "react-apollo-hooks";
 import apolloClientOptions from "./apollo";
 import styles from "./styles";
 import NavController from "./Components/NavController";
+import { AuthProvider } from "./AuthContext";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
