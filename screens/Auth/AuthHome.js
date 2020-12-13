@@ -16,7 +16,7 @@ export default ({ navigation }) => (
     <TouchableOpacity onPress={() => navigation.navigate("Login")}>
       <Text>Go to Login</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+    <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
       <Text>Go to Signup</Text>
     </TouchableOpacity>
   </View>
