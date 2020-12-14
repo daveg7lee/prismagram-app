@@ -6,13 +6,13 @@ import constants from "../constants";
 const Container = styled.View`
   margin-bottom: 15px;
   background-color: ${(props) => props.theme.greyColor};
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid ${(props) => props.theme.lightGreyColor};
 `;
 
 const TextInput = styled.TextInput`
   width: ${constants.width / 2};
-  padding: 7px;
+  padding: 5px;
 `;
 
 const AuthInput = ({
@@ -21,14 +21,22 @@ const AuthInput = ({
   keyboardType = "default",
   autoCapitalize,
   onChange,
+  placeholderTextColor,
+  returnKeyType = "done",
+  onEndEditing = () => null,
+  autoCorrect = true,
 }) => (
   <Container>
     <TextInput
-      keyboardType={keyboardType}
+      placeholderTextColor={placeholderTextColor}
       placeholder={placeholder}
+      keyboardType={keyboardType}
       value={value}
       autoCapitalize={autoCapitalize}
       onChangeText={onChange}
+      returnKeyType={returnKeyType}
+      onEndEditing={onEndEditing}
+      autoCorrect={autoCorrect}
     />
   </Container>
 );
@@ -46,6 +54,10 @@ AuthInput.prototype = {
   ]),
   autoCapitalize: PropTypes.oneOf(["none", "words", "sentences", "characters"]),
   onChange: PropTypes.func.isRequired,
+  placeholderTextColor: PropTypes.string.isRequired,
+  returnKeyType: PropTypes.oneOf(["done", "go", "next", "search", "send"]),
+  onEndEditing: PropTypes.func,
+  autoCorrect: PropTypes.bool,
 };
 
 export default AuthInput;
