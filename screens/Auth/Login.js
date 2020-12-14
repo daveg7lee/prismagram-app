@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useMutation } from "react-apollo-hooks";
 import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
 import AuthButton from "../../Components/AuthButton";
 import AuthInput from "../../Components/AuthInput";
 import useInput from "../../hooks/useInput";
+import { LOG_IN } from "./AuthQueries";
 
 const View = styled.View`
   justify-content: center;
@@ -11,9 +13,15 @@ const View = styled.View`
   flex: 1;
 `;
 
-export default () => {
+export default ({ navigation }) => {
   const emailInput = useInput("");
-  const handleLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const requestSecret = useMutation(LOG_IN, {
+    variables: {
+      email: emailInput.value,
+    },
+  });
+  const handleLogin = async () => {
     const { value } = emailInput;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (value === "") {
@@ -22,6 +30,17 @@ export default () => {
       return Alert.alert("Please write an Email");
     } else if (!emailRegex.test(value)) {
       return Alert.alert("That email is invalid");
+    }
+    try {
+      setLoading(true);
+      await requestSecret();
+      Alert.alert("Check Your Email");
+      navigation.navigate("Confirm");
+    } catch (e) {
+      console.log(e);
+      Alert.alert("Can't Log In Now");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -33,10 +52,10 @@ export default () => {
           keyboardType="email-address"
           placeholderTextColor="grey"
           returnKeyType="send"
-          onEndEditing={handleLogin}
+          onSubmitEditing={handleLogin}
           autoCorrect={false}
         />
-        <AuthButton text="Log In" onPress={handleLogin} />
+        <AuthButton text="Log In" onPress={handleLogin} loading={loading} />
       </View>
     </TouchableWithoutFeedback>
   );

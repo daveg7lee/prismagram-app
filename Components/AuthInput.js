@@ -23,7 +23,7 @@ const AuthInput = ({
   onChange,
   placeholderTextColor,
   returnKeyType = "done",
-  onEndEditing = () => null,
+  onSubmitEditing = () => null,
   autoCorrect = true,
 }) => (
   <Container>
@@ -35,7 +35,7 @@ const AuthInput = ({
       autoCapitalize={autoCapitalize}
       onChangeText={onChange}
       returnKeyType={returnKeyType}
-      onEndEditing={onEndEditing}
+      onSubmitEditing={onSubmitEditing}
       autoCorrect={autoCorrect}
     />
   </Container>
@@ -56,7 +56,7 @@ AuthInput.prototype = {
   onChange: PropTypes.func.isRequired,
   placeholderTextColor: PropTypes.string.isRequired,
   returnKeyType: PropTypes.oneOf(["done", "go", "next", "search", "send"]),
-  onEndEditing: PropTypes.func,
+  onSubmitEditing: PropTypes.func,
   autoCorrect: PropTypes.bool,
 };
 
