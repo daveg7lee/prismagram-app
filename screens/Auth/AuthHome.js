@@ -20,7 +20,7 @@ const LoginLink = styled.View``;
 const LoginLinkText = styled.Text`
   color: ${(props) => props.theme.blueColor};
   font-weight: 600;
-  margin-top: 25px;
+  margin-top: 15px;
 `;
 
 export default ({ navigation }) => (

@@ -20,6 +20,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     try {
+      await AsyncStorage.clear();
       await Font.loadAsync(Ionicons.font);
       await Asset.loadAsync([require("./assets/icon.png")]);
       const cache = new InMemoryCache();

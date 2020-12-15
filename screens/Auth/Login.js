@@ -13,8 +13,8 @@ const View = styled.View`
   flex: 1;
 `;
 
-export default ({ navigation }) => {
-  const emailInput = useInput("");
+export default ({ route, navigation }) => {
+  const emailInput = useInput(route.params?.someParam ?? "");
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: {
@@ -37,11 +37,11 @@ export default ({ navigation }) => {
         data: { requestSecret },
       } = await requestSecretMutation();
       if (requestSecret) {
-        Alert.alert("Check Your Email");
+        Alert.alert("Check Your Email", "We Send Secret!");
         navigation.navigate("Confirm", { email: value });
         return;
       } else {
-        Alert.alert("Account Not Found");
+        Alert.alert("Account Not Found", "Sign Up");
         navigation.navigate("SignUp", { email: value });
       }
     } catch (e) {

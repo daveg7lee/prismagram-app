@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import constants from "../constants";
 
 const Container = styled.View`
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   background-color: ${(props) => props.theme.greyColor};
   border-radius: 5px;
   border: 1px solid ${(props) => props.theme.lightGreyColor};
 `;
 
 const TextInput = styled.TextInput`
-  width: ${constants.width / 2};
+  width: ${constants.width / 1.5};
   padding: 5px;
 `;
 

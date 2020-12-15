@@ -8,9 +8,9 @@ const Touchable = styled.TouchableOpacity``;
 const Container = styled.View`
   background-color: ${(props) => props.theme.blueColor};
   padding: 10px;
-  margin: 0px 50px;
+  margin: 10px 50px;
   border-radius: 4px;
-  width: ${constants.width / 2};
+  width: ${constants.width / 1.5};
 `;
 const Text = styled.Text`
   color: white;
