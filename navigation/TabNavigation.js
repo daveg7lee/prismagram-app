@@ -17,18 +17,31 @@ const stackFactory = (initialRoute, name, customConfig) => (
     <Stack.Screen
       name={name}
       component={initialRoute}
-      options={{ ...customConfig }}
+      options={{
+        ...customConfig,
+        headerStyle: { backgroundColor: "#EFEEEF" },
+      }}
     />
   </Stack.Navigator>
 );
 
 export default () => (
-  <Tab.Navigator tabBarOptions={{ showLabel: false }}>
+  <Tab.Navigator
+    tabBarOptions={{
+      showLabel: false,
+      tabStyle: {
+        backgroundColor: "#EFEEEF",
+      },
+    }}
+  >
     <Tab.Screen
       name="Home"
       options={{
-        tabBarIcon: () => (
-          <NavIcon name={Platform.OS === "ios" ? "ios-home" : "md-home"} />
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-home" : "md-home"}
+          />
         ),
       }}
     >
@@ -42,8 +55,11 @@ export default () => (
     <Tab.Screen
       name="Search"
       options={{
-        tabBarIcon: () => (
-          <NavIcon name={Platform.OS === "ios" ? "ios-search" : "md-search"} />
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-search" : "md-search"}
+          />
         ),
       }}
     >
@@ -56,13 +72,11 @@ export default () => (
     <Tab.Screen
       name="Add"
       options={{
-        tabBarIcon: () => (
+        tabBarIcon: ({ focused }) => (
           <NavIcon
-            name={
-              Platform.OS === "ios"
-                ? "ios-add-circle-outline"
-                : "md-add-circle-outline"
-            }
+            focused={focused}
+            size={28}
+            name={Platform.OS === "ios" ? "ios-add" : "md-add"}
           />
         ),
       }}
@@ -77,8 +91,19 @@ export default () => (
     <Tab.Screen
       name="Notifications"
       options={{
-        tabBarIcon: () => (
-          <NavIcon name={Platform.OS === "ios" ? "ios-heart" : "md-heart"} />
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={
+              Platform.OS === "ios"
+                ? focused
+                  ? "ios-heart"
+                  : "ios-heart-empty"
+                : focused
+                ? "md-heart"
+                : "md-heart-empty"
+            }
+          />
         ),
       }}
     >
@@ -91,8 +116,11 @@ export default () => (
     <Tab.Screen
       name="Profile"
       options={{
-        tabBarIcon: () => (
-          <NavIcon name={Platform.OS === "ios" ? "ios-person" : "md-person"} />
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-person" : "md-person"}
+          />
         ),
       }}
     >
