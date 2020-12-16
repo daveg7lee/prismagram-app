@@ -10,7 +10,7 @@ const View = styled.View`
 `;
 
 const Image = styled.Image`
-  width: ${constants.width / 2};
+  width: ${constants.width / 1.5};
 `;
 
 const Touchable = styled.TouchableOpacity``;

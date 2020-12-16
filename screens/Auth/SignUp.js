@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { useMutation } from "react-apollo-hooks";
 import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
+import * as Google from "expo-google-app-auth";
 import styled from "styled-components/native";
 import AuthButton from "../../Components/AuthButton";
 import AuthInput from "../../Components/AuthInput";
 import useInput from "../../hooks/useInput";
 import { CREATE_ACCOUNT } from "./AuthQueries";
+import constants from "../../constants";
 
 const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
+`;
+
+const GoogleContainer = styled.View`
+  width: ${constants.width / 1.5};
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top-width: 1px;
+  border-color: ${(props) => props.theme.darkGreyColor};
+  border-style: solid;
+  align-items: center;
 `;
 
 export default ({ route, navigation }) => {
@@ -36,7 +48,7 @@ export default ({ route, navigation }) => {
     if (!emailRegex.test(email)) {
       return Alert.alert("That email is invalid");
     }
-    if (firstName === "") {
+    if (firstName === "" || lastName === "") {
       return Alert.alert("I need your name");
     }
     if (username === "") {
@@ -58,6 +70,39 @@ export default ({ route, navigation }) => {
     } finally {
       setLoading(false);
     }
+  };
+  const googleLogIn = async () => {
+    try {
+      setLoading(true);
+      const result = await Google.logInAsync({
+        androidClientId:
+          "865769731655-kudsdhlbjh07c29ugi234ad00k867jgf.apps.googleusercontent.com",
+        iosClientId:
+          "865769731655-vbju5lnq89lqkd1r56s1bi0nfjcrrjdd.apps.googleusercontent.com",
+        scopes: ["profile", "email"],
+      });
+      if (result.type === "success") {
+        const user = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+          headers: { Authorization: `Bearer ${result.accessToken}` },
+        });
+        const { email, family_name, given_name } = await user.json();
+        updateFormData(email, given_name, family_name);
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    } finally {
+      setLoading(false);
+    }
+  };
+  const updateFormData = (email, firstName, lastName) => {
+    console.log(email, firstName, lastName);
+    emailInput.setValue(email);
+    FirstNameInput.setValue(firstName);
+    LastNameInput.setValue(lastName);
+    const [username] = email.split("@");
+    userNameInput.setValue(username);
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -87,6 +132,14 @@ export default ({ route, navigation }) => {
           autoCapitalize="words"
         />
         <AuthButton text="Sign Up" onPress={handleSignIn} loading={loading} />
+        <GoogleContainer>
+          <AuthButton
+            color={"#DE5246"}
+            loading={false}
+            onPress={googleLogIn}
+            text="Connect Google"
+          />
+        </GoogleContainer>
       </View>
     </TouchableWithoutFeedback>
   );
