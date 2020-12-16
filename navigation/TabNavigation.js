@@ -8,6 +8,7 @@ import Search from "../screens/Tabs/Search";
 import Notifications from "../screens/Tabs/Notification";
 import MessagesLink from "../Components/MessagesLink";
 import NavIcon from "../Components/NavIcon";
+import { stackStyles } from "./config";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,7 +20,7 @@ const stackFactory = (initialRoute, name, customConfig) => (
       component={initialRoute}
       options={{
         ...customConfig,
-        headerStyle: { backgroundColor: "#EFEEEF" },
+        headerStyle: { ...stackStyles },
       }}
     />
   </Stack.Navigator>
@@ -29,8 +30,8 @@ export default () => (
   <Tab.Navigator
     tabBarOptions={{
       showLabel: false,
-      tabStyle: {
-        backgroundColor: "#EFEEEF",
+      style: {
+        backgroundColor: "#FAFAFA",
       },
     }}
   >
