@@ -25,14 +25,34 @@ const Location = styled.Text`
 `;
 
 const IconsContainer = styled.View`
-  padding: 10px;
   flex-direction: row;
+  margin-bottom: 5px;
 `;
 const IconContainer = styled.View`
   margin-right: 10px;
 `;
 
-const Post = ({ user, location, files = [] }) => {
+const InfoContainer = styled.View`
+  padding: 10px;
+`;
+const Caption = styled.Text`
+  margin: 3px 0px;
+  align-items: center;
+  justify-content: center;
+`;
+const CommentCount = styled.Text`
+  opacity: 0.5;
+  font-size: 13px;
+`;
+
+const Post = ({
+  user,
+  location,
+  files = [],
+  likeCount,
+  caption,
+  comments = [],
+}) => {
   return (
     <Container>
       <Header>
@@ -63,28 +83,58 @@ const Post = ({ user, location, files = [] }) => {
           />
         ))}
       </Swiper>
-      <IconsContainer>
+      <InfoContainer>
+        <IconsContainer>
+          <Touchable>
+            <IconContainer>
+              <Ionicons
+                size={30}
+                name={
+                  Platform.OS === "ios"
+                    ? "ios-heart-outline"
+                    : "md-heart-outline"
+                }
+              />
+            </IconContainer>
+          </Touchable>
+          <Touchable>
+            <IconContainer>
+              <Ionicons
+                size={30}
+                name={
+                  Platform.OS === "ios"
+                    ? "ios-chatbubbles-outline"
+                    : "md-chatbubbles-outline"
+                }
+              />
+            </IconContainer>
+          </Touchable>
+        </IconsContainer>
         <Touchable>
-          <IconContainer>
-            <Ionicons
-              size={30}
-              name={
-                Platform.OS === "ios" ? "ios-heart-empty" : "md-heart-empty"
-              }
-            />
-          </IconContainer>
+          <Bold>
+            {likeCount <= 1 ? `${likeCount} like` : `${likeCount} likes`}
+          </Bold>
         </Touchable>
+        <Container
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Touchable>
+            <Bold>{user.username}</Bold>
+          </Touchable>
+          <Caption> {caption}</Caption>
+        </Container>
         <Touchable>
-          <IconContainer>
-            <Ionicons
-              size={30}
-              name={
-                Platform.OS === "ios" ? "ios-chatbubbles" : "md-chatbubbles"
-              }
-            />
-          </IconContainer>
+          <CommentCount>
+            See all{" "}
+            {comments.length <= 1
+              ? `${comments.length} comment`
+              : `${comments.length} comments`}
+          </CommentCount>
         </Touchable>
-      </IconsContainer>
+      </InfoContainer>
     </Container>
   );
 };

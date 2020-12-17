@@ -42,7 +42,15 @@ export default () => (
         tabBarIcon: ({ focused }) => (
           <NavIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-home" : "md-home"}
+            name={
+              Platform.OS === "ios"
+                ? focused
+                  ? "ios-home"
+                  : "ios-home-outline"
+                : focused
+                ? "md-home"
+                : "md-home-outline"
+            }
           />
         ),
       }}
@@ -100,10 +108,10 @@ export default () => (
               Platform.OS === "ios"
                 ? focused
                   ? "ios-heart"
-                  : "ios-heart-empty"
+                  : "ios-heart-outline"
                 : focused
                 ? "md-heart"
-                : "md-heart-empty"
+                : "md-heart-outline"
             }
           />
         ),
@@ -121,7 +129,15 @@ export default () => (
         tabBarIcon: ({ focused }) => (
           <NavIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-person" : "md-person"}
+            name={
+              Platform.OS === "ios"
+                ? focused
+                  ? "ios-person"
+                  : "ios-person-outline"
+                : focused
+                ? "md-person"
+                : "md-person-outline"
+            }
           />
         ),
       }}
