@@ -21,6 +21,7 @@ const stackFactory = (initialRoute, name, customConfig) => (
       options={{
         ...customConfig,
         headerStyle: { ...stackStyles },
+        headerTitleAlign: "center",
       }}
     />
   </Stack.Navigator>
