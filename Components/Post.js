@@ -1,7 +1,10 @@
 import React from "react";
 import { Image } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
+import Swiper from "react-native-swiper";
+import constants from "../constants";
 
 const Container = styled.View``;
 const Header = styled.View`
@@ -21,7 +24,15 @@ const Location = styled.Text`
   font-size: 12px;
 `;
 
-const Post = ({ user, location }) => {
+const IconsContainer = styled.View`
+  padding: 10px;
+  flex-direction: row;
+`;
+const IconContainer = styled.View`
+  margin-right: 10px;
+`;
+
+const Post = ({ user, location, files = [] }) => {
   return (
     <Container>
       <Header>
@@ -38,6 +49,42 @@ const Post = ({ user, location }) => {
           </HeaderUserContainer>
         </Touchable>
       </Header>
+      <Swiper
+        loop
+        style={{ height: constants.height / 2.5 }}
+        dotColor="#999"
+        activeDotColor="white"
+      >
+        {files.map((file) => (
+          <Image
+            source={{ uri: file.url }}
+            key={file.id}
+            style={{ width: constants.width, height: constants.height / 2.5 }}
+          />
+        ))}
+      </Swiper>
+      <IconsContainer>
+        <Touchable>
+          <IconContainer>
+            <Ionicons
+              size={30}
+              name={
+                Platform.OS === "ios" ? "ios-heart-empty" : "md-heart-empty"
+              }
+            />
+          </IconContainer>
+        </Touchable>
+        <Touchable>
+          <IconContainer>
+            <Ionicons
+              size={30}
+              name={
+                Platform.OS === "ios" ? "ios-chatbubbles" : "md-chatbubbles"
+              }
+            />
+          </IconContainer>
+        </Touchable>
+      </IconsContainer>
     </Container>
   );
 };
