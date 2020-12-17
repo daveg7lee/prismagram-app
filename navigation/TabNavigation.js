@@ -86,7 +86,11 @@ export default () => (
           <NavIcon
             focused={focused}
             size={28}
-            name={Platform.OS === "ios" ? "ios-add" : "md-add"}
+            name={
+              Platform.OS === "ios"
+                ? "ios-add-circle-outline"
+                : "md-add-circle-outline"
+            }
           />
         ),
       }}
