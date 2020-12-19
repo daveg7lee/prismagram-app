@@ -145,9 +145,7 @@ const Post = ({
         </IconsContainer>
         <Touchable>
           <Bold>
-            {likeCountProp <= 1
-              ? `${likeCountProp} like`
-              : `${likeCountProp} likes`}
+            {likeCount <= 1 ? `${likeCount} like` : `${likeCount} likes`}
           </Bold>
         </Touchable>
         <Container
